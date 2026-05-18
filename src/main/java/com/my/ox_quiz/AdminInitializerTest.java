@@ -20,21 +20,19 @@ public class AdminInitializerTest {
 
     @Test
     @Transactional
-    @Rollback(false) // DB에 실제로 반영되도록 롤백을 해제합니다.
+    @Rollback(false)
     public void insertAdminAccount() {
-        // 1. root 계정이 이미 존재하는지 먼저 확인 (멱등성 확보)
+
         Optional<Member> existingAdmin = memberRepository.findById("root");
 
         if (existingAdmin.isEmpty()) {
-            // 사양서 6번: 비번을 암호화 해서 입력 (여기서는 기본 요구 암호 원문인 admin을 셋팅하되,
-            // 만약 보안 해시 기법이나 BCrypt 객체가 프로젝트에 빈 등록 되어있다면 encoder.encode("admin")을 대입합니다.)
             String encryptedPassword = "admin";
 
             Member admin = Member.builder()
                     .id("root")
                     .password(encryptedPassword)
                     .role(RoleType.ADMIN)
-                    .status(MemberStatus.APPROVED) // 관리자는 즉시 승인 완료 상태
+                    .status(MemberStatus.APPROVED)
                     .answerTrue(0)
                     .answerFalse(0)
                     .build();
