@@ -75,7 +75,7 @@ public class MemberService {
                 .map(Member::toDto)
                 .collect(Collectors.toList());
     }
-    
+
     public MemberDto findMemberById(String id) {
         return memberRepository.findById(id)
                 .map(Member::toDto)
