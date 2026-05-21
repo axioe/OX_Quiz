@@ -37,7 +37,8 @@ public class AdminInitializerTest {
                     .answerFalse(0)
                     .build();
 
-            memberRepository.save(admin);
+            memberRepository.saveAndFlush(admin);
+
             System.out.println("====== [초기화 완료] 관리자 계정(root)이 DB에 성공적으로 등록되었습니다. ======");
         } else {
             System.out.println("====== [안내] 이미 관리자 계정(root)이 존재하므로 생략합니다. ======");
